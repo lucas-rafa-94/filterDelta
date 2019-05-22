@@ -1,4 +1,4 @@
-package br.com.alpargatas.materiais.filterDelta.service;
+package br.com.alpargatas.materiais.filterDelta.client;
 
 import br.com.alpargatas.materiais.filterDelta.bean.getSku.YMM_PA_CAD_MATL;
 import br.com.alpargatas.materiais.filterDelta.bean.getSku.YMM_PA_CAD_MATL_Response;
@@ -12,13 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetSkuRestClient {
 
+    ClientResponse response = null;
+    WebResource webResource = null;
+    Client client = null;
+    Gson gson = new Gson();
+
     public YMM_PA_CAD_MATL_Response postGetMaterialChanged (YMM_PA_CAD_MATL ymm_pa_cad_matl){
-
-        Gson gson = new Gson();
-
-        ClientResponse response = null;
-        WebResource webResource = null;
-        Client client = null;
 
         client = Client.create();
 
@@ -36,7 +35,6 @@ public class GetSkuRestClient {
 
 
         YMM_PA_CAD_MATL_Response ymmpacadmatlResponse = gson.fromJson(response.getEntity(String.class), YMM_PA_CAD_MATL_Response.class);
-
 
         return ymmpacadmatlResponse;
     }

@@ -3,6 +3,8 @@ package br.com.alpargatas.materiais.filterDelta.controller;
 import br.com.alpargatas.materiais.filterDelta.bean.FilterDevCall;
 import br.com.alpargatas.materiais.filterDelta.bean.RestCallResponse;
 import br.com.alpargatas.materiais.filterDelta.service.MaterialFilterService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,16 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableAsync
 @RestController
 @RequestMapping("/materias/filter-delta")
-public class MaterialFilteController {
+public class MaterialFilterController {
 
     @Autowired
     MaterialFilterService materialFilterService;
 
+    Logger logger = LoggerFactory.getLogger(MaterialFilterController.class);
+
     @PostMapping
     public RestCallResponse filterDeltaCall(@RequestBody FilterDevCall filterDevCall){
-        RestCallResponse restCallResponse = new RestCallResponse("Carga Delta Materiais em andamento");
+        RestCallResponse restCallResponse = new RestCallResponse("Carga Delta Materiais em andamento | Data: " + filterDevCall.getData() + " horario: " + filterDevCall.getHorario());
+        logger.info(restCallResponse.getStatus());
         materialFilterService.filterDeltaCall(filterDevCall);
         return restCallResponse;
-
     }
 }
