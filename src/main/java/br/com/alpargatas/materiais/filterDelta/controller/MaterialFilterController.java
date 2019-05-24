@@ -2,6 +2,7 @@ package br.com.alpargatas.materiais.filterDelta.controller;
 
 import br.com.alpargatas.materiais.filterDelta.bean.FilterDevCall;
 import br.com.alpargatas.materiais.filterDelta.bean.RestCallResponse;
+import br.com.alpargatas.materiais.filterDelta.bean.getSku.TMaterial;
 import br.com.alpargatas.materiais.filterDelta.service.MaterialFilterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @EnableAsync
 @RestController
@@ -28,5 +31,11 @@ public class MaterialFilterController {
         logger.info(restCallResponse.getStatus());
         materialFilterService.filterDeltaCall(filterDevCall);
         return restCallResponse;
+    }
+
+    @PostMapping("/input")
+    public String filterDeltaCall(@RequestBody TMaterial tMaterial){
+        materialFilterService.input(tMaterial);
+        return "Ok";
     }
 }

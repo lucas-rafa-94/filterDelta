@@ -50,4 +50,17 @@ public class MaterialFilterService {
 
     }
 
+    @Async
+    public void input(TMaterial tMaterial){
+        for(int i = 0; i < tMaterial.getItem().size(); i++){
+//            try{
+//                Thread.sleep(10000);
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
+            postMaterialRestClient.postGetMaterialChanged(tMaterial.getItem().get(i).getMATNR());
+            logger.info("Enviando Material para criacao/atualizacao " + tMaterial.getItem().get(i).getMATNR());
+        }
+    }
+
 }
